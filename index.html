@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prawin</title>
+        <!-- Bootstrap CSS & JS, Animate.css CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .navbar-nav .nav-link {
+        transition: color 0.3s, background 0.3s;
+    }
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+        color: #00ffae !important;
+        background: rgba(255,255,255,0.05);
+        border-radius: 0.5rem;
+    }
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0,255,174,0.25);
+        border-color: #00ffae;
+    }
+    .btn-outline-success {
+        border-color: #00ffae;
+        color: #00ffae;
+        transition: background 0.3s, color 0.3s;
+    }
+    .btn-outline-success:hover {
+        background: #00ffae;
+        color: #fff;
+    }
+    .transition {
+        transition: all 0.3s;
+    }
+    /* Cover Section */
+    .cover-section {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(120deg, #232526 0%, #00ffae 100%);
+    }
+    .cover-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 70% 30%, #00ffae33 0%, transparent 70%);
+        z-index: 1;
+        pointer-events: none;
+    }
+    .cover-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: #fff;
+    }
+    .profile-img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 5px solid #00ffae;
+        box-shadow: 0 4px 32px #00ffae44;
+        margin-bottom: 1rem;
+        object-fit: cover;
+        background: #fff;
+    }
+    .name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    .tagline {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #e0e0e0;
+    }
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    .social {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        background-size: 60% 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        background-color: #232526;
+        transition: background 0.3s, transform 0.3s;
+        border: 2px solid #00ffae;
+    }
+    .social.github { background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg'); }
+    .social.whatsapp { background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/whatsapp-original.svg'); }
+    .social.linkedin { background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg'); }
+    .social.mail { background-image: url('https://cdn-icons-png.flaticon.com/512/732/732200.png'); background-size: 50% 50%; }
+    .social:hover {
+        background-color: #00ffae;
+        transform: scale(1.1) rotate(-5deg);
+    }
+    .scroll-down {
+        position: absolute;
+        left: 50%;
+        bottom: 40px;
+        width: 32px;
+        height: 32px;
+        border: 2px solid #00ffae;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        animation: bounce 1.5s infinite;
+    }
+    .scroll-down::after {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-bottom: 2px solid #00ffae;
+        border-right: 2px solid #00ffae;
+        transform: rotate(45deg);
+        margin: 8px auto 0;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0);}
+        50% { transform: translateX(-50%) translateY(12px);}
+    }
+
+    /* Section Styles */
+    section {
+        position: relative;
+        padding: 80px 0 60px 0;
+        background: #181a1b;
+        color: #fff;
+        overflow: visible;
+    }
+    .about-section, .studies-section, .analysis-section, .contact-section {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .about-content, .studies-content, .analysis-content, .contact-content {
+        max-width: 700px;
+        width: 90%;
+        background: #232526;
+        padding: 2.5rem 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 32px #00ffae22;
+        margin-bottom: 2rem;
+    }
+    h2 {
+        color: #00ffae;
+        margin-bottom: 1.2rem;
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    .line-connector {
+        width: 4px;
+        height: 60px;
+        background: linear-gradient(180deg, #00ffae 0%, transparent 100%);
+        margin: 0 auto;
+        border-radius: 2px;
+        box-shadow: 0 0 12px #00ffae88;
+    }
+
+    /* Studies Graph */
+    .graph-container {
+        margin-top: 1.5rem;
+    }
+    .bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.1rem;
+    }
+    .bar span {
+        width: 110px;
+        font-weight: 500;
+        color: #00ffae;
+        font-size: 1rem;
+    }
+    .bar-bg {
+        flex: 1;
+        height: 18px;
+        background: #181a1b;
+        border-radius: 9px;
+        margin-left: 1rem;
+        overflow: hidden;
+        box-shadow: 0 2px 8px #00ffae22;
+    }
+    .bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00ffae 0%, #00c6fb 100%);
+        border-radius: 9px 0 0 9px;
+        transition: width 1.2s cubic-bezier(.77,0,.18,1);
+        box-shadow: 0 0 8px #00ffae88;
+    }
+
+    /* Page Analysis */
+    .analysis-list {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0 0 0;
+    }
+    .analysis-list li {
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    .analysis-list .dot {
+        width: 12px;
+        height: 12px;
+        background: #00ffae;
+        border-radius: 50%;
+        margin-right: 1rem;
+        box-shadow: 0 0 8px #00ffae88;
+    }
+
+    /* Contact Form */
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+        margin-top: 1.2rem;
+    }
+    .contact-form input, .contact-form textarea {
+        background: #181a1b;
+        border: 2px solid #00ffae44;
+        border-radius: 0.7rem;
+        padding: 0.9rem 1.1rem;
+        color: #fff;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.3s, box-shadow 0.3s;
+        resize: none;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+        border: 2px solid #00ffae;
+        box-shadow: 0 0 8px #00ffae88;
+    }
+    .contact-form button {
+        background: linear-gradient(90deg, #00ffae 0%, #00c6fb 100%);
+        color: #232526;
+        border: none;
+        border-radius: 0.7rem;
+        padding: 0.9rem 1.1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s, transform 0.2s;
+        box-shadow: 0 2px 8px #00ffae44;
+    }
+    .contact-form button:hover {
+        background: #232526;
+        color: #00ffae;
+        transform: scale(1.05);
+    }
+
+    /* Connecting Lines (SVG) */
+    section:not(:last-child)::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: -30px;
+        width: 4px;
+        height: 60px;
+        background: linear-gradient(180deg, #00ffae 0%, transparent 100%);
+        border-radius: 2px;
+        transform: translateX(-50%);
+        z-index: 2;
+        box-shadow: 0 0 12px #00ffae88;
+    }
+
+    /* Cool Scroll Animations */
+    section {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
+    }
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+        .about-content, .studies-content, .analysis-content, .contact-content {
+            padding: 1.5rem 1rem;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+        }
+        .name {
+            font-size: 2rem;
+        }
+    }
+    @media (max-width: 600px) {
+        .about-content, .studies-content, .analysis-content, .contact-content {
+            max-width: 98vw;
+            padding: 1rem 0.5rem;
+        }
+        .cover-section {
+            padding: 2rem 0;
+        }
+        .profile-img {
+            width: 80px;
+            height: 80px;
+        }
+        .name {
+            font-size: 1.3rem;
+        }
+        .tagline {
+            font-size: 1rem;
+        }
+        .bar span {
+            width: 70px;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Hide scrollbars for a clean look */
+    body {
+        scrollbar-width: thin;
+        scrollbar-color: #00ffae #232526;
+    }
+    body::-webkit-scrollbar {
+        width: 8px;
+        background: #232526;
+    }
+    body::-webkit-scrollbar-thumb {
+        background: #00ffae;
+        border-radius: 4px;
+    }
+     .footer-section {
+            box-shadow: 0 -4px 32px #00ffae22;
+            background: linear-gradient(90deg, #232526 0%, #181a1b 100%);
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            margin-top: 60px;
+            animation-delay: 0.2s;
+        }
+        .footer-section .social {
+            border: 2px solid #00ffae;
+            background-color: #232526;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px #00ffae22;
+        }
+        .footer-section .social:hover {
+            background: #00ffae;
+            transform: scale(1.15) rotate(-8deg);
+            box-shadow: 0 0 16px #00ffae88;
+        }
+        .footer-anim svg {
+            display: block;
+            margin: 0 auto;
+        }
+        @media (max-width: 600px) {
+            .footer-section {
+                border-radius: 1rem 1rem 0 0;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .footer-anim svg {
+                width: 80px;
+                height: 30px;
+            }
+        }
+            #ai-assistant-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1300;
+        background: radial-gradient(ellipse at 50% 40%, #00ffae22 0%, #232526 80%);
+        backdrop-filter: blur(2px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s cubic-bezier(.77,0,.18,1);
+    }
+    #ai-assistant-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .ai-assistant-card {
+        position: relative;
+        background: linear-gradient(120deg, #232526 60%, #00ffae22 100%);
+        border-radius: 2rem;
+        box-shadow: 0 8px 48px #00ffae66, 0 0 0 8px #00ffae11 inset;
+        max-width: 420px;
+        width: 95vw;
+        padding: 2.2rem 1.2rem 1.5rem 1.2rem;
+        overflow: hidden;
+        animation: ai-card-in 0.7s cubic-bezier(.77,0,.18,1);
+    }
+    @keyframes ai-card-in {
+        0% { transform: scale(0.7) rotate(-8deg); opacity: 0; }
+        80% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+        100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    .ai-assistant-skull {
+        display: block;
+        margin: 0 auto 0.7rem auto;
+        width: 60px;
+        height: 60px;
+        filter: drop-shadow(0 0 16px #00ffaecc);
+        animation: skull-flicker 1.2s infinite alternate;
+    }
+    @keyframes skull-flicker {
+        0% { filter: drop-shadow(0 0 8px #00ffae88); }
+        100% { filter: drop-shadow(0 0 24px #00ffaecc); }
+    }
+    .ai-assistant-title {
+        color: #00ffae;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 8px #00ffae88;
+    }
+    .ai-assistant-desc {
+        color: #e0e0e0;
+        text-align: center;
+        font-size: 1.05rem;
+        margin-bottom: 1.2rem;
+    }
+    .ai-assistant-input-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 0.7rem;
+    }
+    .ai-assistant-input {
+        flex: 1;
+        border-radius: 1rem;
+        border: 2px solid #00ffae44;
+        background: #181a1b;
+        color: #fff;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+    .ai-assistant-input:focus {
+        border: 2px solid #00ffae;
+        box-shadow: 0 0 8px #00ffae88;
+    }
+    .ai-assistant-send-btn {
+        background: linear-gradient(90deg, #00ffae 0%, #00c6fb 100%);
+        color: #232526;
+        border: none;
+        border-radius: 1rem;
+        padding: 0.7rem 1.1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s, transform 0.2s;
+        box-shadow: 0 2px 8px #00ffae44;
+    }
+    .ai-assistant-send-btn:hover {
+        background: #232526;
+        color: #00ffae;
+        transform: scale(1.05);
+    }
+    .ai-assistant-messages {
+        background: #181a1b;
+        border-radius: 1rem;
+        min-height: 120px;
+        max-height: 180px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+        padding: 0.7rem 0.8rem;
+        box-shadow: 0 2px 8px #00ffae22;
+        font-size: 1rem;
+        color: #fff;
+        line-height: 1.5;
+    }
+    .ai-assistant-message {
+        margin-bottom: 0.7rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .ai-assistant-message.user .msg-bubble {
+        background: linear-gradient(90deg, #00c6fb 0%, #00ffae 100%);
+        color: #232526;
+        align-self: flex-end;
+    }
+    .ai-assistant-message.ai .msg-bubble {
+        background: #232526;
+        color: #00ffae;
+        border: 1.5px solid #00ffae88;
+        align-self: flex-start;
+    }
+    .msg-bubble {
+        border-radius: 1rem 1rem 1rem 0.3rem;
+        padding: 0.5rem 1rem;
+        max-width: 80%;
+        box-shadow: 0 1px 6px #00ffae22;
+        word-break: break-word;
+        animation: msg-in 0.5s;
+    }
+    @keyframes msg-in {
+        0% { transform: translateY(20px) scale(0.95); opacity: 0; }
+        100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .ai-assistant-close {
+        position: absolute;
+        top: 1.1rem;
+        right: 1.1rem;
+        background: none;
+        border: none;
+        color: #00ffae;
+        font-size: 1.7rem;
+        cursor: pointer;
+        z-index: 2;
+        transition: color 0.2s;
+    }
+    .ai-assistant-close:hover {
+        color: #fff;
+    }
+    .ai-storm-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    .ai-storm-light {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #00ffae66 0%, transparent 80%);
+        opacity: 0.7;
+        animation: storm-move 2.5s infinite alternate;
+    }
+    .ai-storm-light.one { left: -40px; top: -40px; animation-delay: 0s;}
+    .ai-storm-light.two { right: -40px; bottom: -40px; animation-delay: 1.2s;}
+    @keyframes storm-move {
+        0% { transform: scale(1) translateY(0);}
+        100% { transform: scale(1.2) translateY(18px);}
+    }
+    .ai-storm-lines {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+        .ai-skull-btn {
+        position: fixed;
+        right: 32px;
+        bottom: 32px;
+        z-index: 1200;
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 60% 40%, #00ffae 0%, #232526 80%);
+        box-shadow: 0 0 32px #00ffae88, 0 0 80px #00c6fb44 inset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 3px solid #00ffae;
+        transition: transform 0.2s, box-shadow 0.3s;
+        animation: skull-glow 2s infinite alternate;
+    }
+    .ai-skull-btn:hover {
+        transform: scale(1.08) rotate(-6deg);
+        box-shadow: 0 0 48px #00ffaecc, 0 0 120px #00c6fb66 inset;
+    }
+    @keyframes skull-glow {
+        0% { box-shadow: 0 0 32px #00ffae88, 0 0 80px #00c6fb44 inset; }
+        100% { box-shadow: 0 0 64px #00ffaecc, 0 0 160px #00c6fb99 inset; }
+    }
+    .ai-skull-svg {
+        width: 44px;
+        height: 44px;
+        filter: drop-shadow(0 0 8px #00ffae88);
+        transition: filter 0.3s;
+    }
+    .ai-skull-btn:hover .ai-skull-svg {
+        filter: drop-shadow(0 0 16px #00ffaecc);
+    }
+    @media (max-width: 600px) {
+        .ai-skull-btn {
+            right: 12px;
+            bottom: 12px;
+            width: 54px;
+            height: 54px;
+        }
+        .ai-skull-svg {
+            width: 34px;
+            height: 34px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg" style="z-index: 1;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">Prawin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse animate__animated animate__fadeInDown" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">SignIn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Mine
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Journey</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex position-relative" role="search">
+                    <input class="form-control me-2 rounded-pill transition" list="lists" type="search" placeholder="Search" aria-label="Search">
+                    <datalist id="lists">
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="6"></option>
+                        <option value="7"></option>
+                        <option value="8"></option>
+                    </datalist>
+                    <button class="btn btn-outline-success rounded-pill transition" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <!-- Cover Section -->
+    <section class="cover-section">
+        <div class="cover-bg"></div>
+        <div class="cover-content animate__animated animate__fadeInDown">
+            <img src="https://raw.githubusercontent.com/Praw47/portfolio/main/IMG20230927015722-Photoroom.png">
+            <h1 class="name">Prawin</h1>
+            <p class="tagline">Web Developer &amp; Tech Enthusiast</p>
+            <div class="social-links">
+                <a href="https://github.com/Praw47" target="_blank" class="social github" title="GitHub"></a>
+                <a href="https://wa.me/919876543210"" target="_blank" class="social whatsapp" title="Whatsapp"></a>
+                <a href="https://linkedin.com/" target="_blank" class="social linkedin" title="LinkedIn"></a>
+                <a href="mailto:kdprawin@gmail.com"" class="social mail" title="Email"></a>
+            </div>
+        </div>
+        <div class="scroll-down"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content animate__animated animate__fadeInLeft">
+            <h2>About Me</h2>
+            <p>
+                Hi! I'm Prawin, passionate about building interactive web experiences and exploring new technologies. I love coding, designing, and analyzing data to create meaningful digital products.
+            </p>
+        </div>
+        <div class="line-connector"></div>
+    </section>
+
+    <!-- Studies Graph Section -->
+    <section class="studies-section">
+        <div class="studies-content animate__animated animate__fadeInRight">
+            <h2>Studies &amp; Skills</h2>
+            <div class="graph-container">
+                <div class="bar">
+                    <span>HTML</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%"></div></div>
+                </div>
+                <div class="bar">
+                    <span>CSS</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%"></div></div>
+                </div>
+                <div class="bar">
+                    <span>JavaScript</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 85%"></div></div>
+                </div>
+                <div class="bar">
+                    <span>Python</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 75%"></div></div>
+                </div>
+                <div class="bar">
+                    <span>React</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 70%"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="line-connector"></div>
+    </section>
+
+    <!-- Page Analysis Section -->
+    <section class="analysis-section">
+        <div class="analysis-content animate__animated animate__fadeInUp">
+            <h2>Page Analysis</h2>
+            <ul class="analysis-list">
+                <li><span class="dot"></span> Projects Completed: <strong>12</strong></li>
+                <li><span class="dot"></span> Years Experience: <strong>3+</strong></li>
+                <li><span class="dot"></span> Technologies Used: <strong>10+</strong></li>
+                <li><span class="dot"></span> Happy Clients: <strong>8</strong></li>
+            </ul>
+        </div>
+        <div class="line-connector"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-content animate__animated animate__fadeIn">
+            <h2>Connect with Me</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required />
+                <input type="email" placeholder="Your Email" required />
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer-section bg-dark text-white pt-5 pb-3 animate__animated animate__fadeInUp" style="position:relative; z-index:2; overflow:hidden;">
+        <div class="container text-center">
+            <div class="mb-3">
+                <a href="https://github.com/" target="_blank" class="social github mx-2" title="GitHub" style="vertical-align:middle;"></a>
+                <a href="https://twitter.com/" target="_blank" class="social twitter mx-2" title="Twitter" style="vertical-align:middle;"></a>
+                <a href="https://linkedin.com/" target="_blank" class="social linkedin mx-2" title="LinkedIn" style="vertical-align:middle;"></a>
+                <a href="mailto:your@email.com" class="social mail mx-2" title="Email" style="vertical-align:middle;"></a>
+            </div>
+            <p class="mb-1" style="letter-spacing:1px;">
+                &copy; <span id="year"></span> Prawin. All Rights Reserved.
+            </p>
+            <div class="footer-anim d-flex justify-content-center align-items-center mt-3" style="height:40px;">
+                <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="footer-bubble" cx="20" cy="20" r="6" fill="#00ffae">
+                        <animate attributeName="cy" values="20;10;20" dur="1.2s" repeatCount="indefinite" />
+                    </circle>
+                    <circle class="footer-bubble" cx="60" cy="20" r="6" fill="#00ffae" opacity="0.7">
+                        <animate attributeName="cy" values="20;30;20" dur="1.2s" begin="0.4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle class="footer-bubble" cx="100" cy="20" r="6" fill="#00ffae" opacity="0.5">
+                        <animate attributeName="cy" values="20;10;20" dur="1.2s" begin="0.8s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Sign In Modal Overlay -->
+    <div id="signin-modal" class="d-none position-fixed top-0 start-0 w-100 h-100" style="z-index:1050; background:rgba(24,26,27,0.97); transition:opacity 0.4s;">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="signin-card animate__animated animate__fadeInDown position-relative" style="background:#232526; border-radius:1.5rem; box-shadow:0 8px 40px #00ffae44; max-width:420px; width:95vw; padding:1.5rem 1rem;">
+                <button type="button" id="close-signin" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close" style="filter:invert(1);"></button>
+                <div class="text-center mb-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sign In" style="width:56px; height:56px; border-radius:50%; box-shadow:0 2px 16px #00ffae44;">
+                    <h2 class="mt-2 mb-1" style="color:#00ffae; letter-spacing:1px; font-size:1.3rem;">Sign In to Your Account</h2>
+                    <p class="text-secondary mb-2" style="font-size:0.98rem;">Welcome back! Please enter your details.</p>
+                </div>
+                <form id="signin-form" autocomplete="off" class="d-flex flex-column gap-2">
+                    <div>
+                        <label class="form-label mb-1" for="signin-email" style="color:#00ffae; font-size:0.97rem;">Email address</label>
+                        <input type="email" class="form-control" id="signin-email" placeholder="Enter email" required autocomplete="username" style="font-size:0.97rem; padding:0.5rem 0.8rem;">
+                    </div>
+                    <div>
+                        <label class="form-label mb-1" for="signin-password" style="color:#00ffae; font-size:0.97rem;">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="signin-password" placeholder="Password" required autocomplete="current-password" style="font-size:0.97rem; padding:0.5rem 0.8rem;">
+                            <button class="btn btn-outline-success" type="button" id="toggle-password" tabindex="-1" title="Show/Hide Password" style="padding:0.25rem 0.6rem;">
+                                <span class="bi bi-eye"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center" style="font-size:0.93rem;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label text-secondary" for="rememberMe" style="font-size:0.93rem;">Remember me</label>
+                        </div>
+                        <a href="#" class="text-decoration-none" style="color:#00ffae;">Forgot?</a>
+                    </div>
+                    <button type="submit" class="btn w-100" style="background:linear-gradient(90deg,#00ffae 0%,#00c6fb 100%); color:#232526; font-weight:bold; font-size:1.05rem; border-radius:0.7rem; box-shadow:0 2px 8px #00ffae44; padding:0.5rem 0;">Sign In</button>
+                    <div class="text-center mt-1 mb-1 text-secondary" style="font-size:0.93rem;">or sign in with</div>
+                    <div class="d-flex justify-content-center gap-2 mb-1">
+                        <button type="button" class="btn btn-outline-light rounded-circle p-1" title="Sign in with Google" style="border-color:#00ffae;">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;">
+                        </button>
+                        <button type="button" class="btn btn-outline-light rounded-circle p-1" title="Sign in with GitHub" style="border-color:#00ffae;">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:22px;">
+                        </button>
+                        <button type="button" class="btn btn-outline-light rounded-circle p-1" title="Sign in with Twitter" style="border-color:#00ffae;">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg" alt="Twitter" style="width:22px;">
+                        </button>
+                    </div>
+                    <div class="text-center mt-1" style="font-size:0.95rem;">
+                        <span class="text-secondary">Don't have an account?</span>
+                        <a href="#" class="text-decoration-none" style="color:#00ffae;">Sign Up</a>
+                    </div>
+                </form>
+                <div class="signin-anim mt-3 d-flex justify-content-center">
+                    <svg width="70" height="18" viewBox="0 0 70 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="9" r="4" fill="#00ffae">
+                            <animate attributeName="cy" values="9;4;9" dur="1.2s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="35" cy="9" r="4" fill="#00ffae" opacity="0.7">
+                            <animate attributeName="cy" values="9;14;9" dur="1.2s" begin="0.4s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="60" cy="9" r="4" fill="#00ffae" opacity="0.5">
+                            <animate attributeName="cy" values="9;4;9" dur="1.2s" begin="0.8s" repeatCount="indefinite" />
+                        </circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Dashboard Modal Overlay -->
+    <div id="dashboard-modal" class="d-none position-fixed top-0 start-0 w-100 h-100" style="z-index:1060; background:rgba(24,26,27,0.97); transition:opacity 0.4s;">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="dashboard-card animate__animated animate__fadeInUp position-relative" style="background:#232526; border-radius:1.5rem; box-shadow:0 8px 40px #00ffae44; max-width:700px; width:95vw; padding:1.5rem 1rem; max-height:95vh; overflow-y:auto;">
+                <button type="button" id="close-dashboard" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close" style="filter:invert(1);"></button>
+                <div class="text-center mb-3">
+                    <h2 style="color:#00ffae; letter-spacing:1px; font-size:2rem;">My Dashboard</h2>
+                    <p class="text-secondary mb-2" style="font-size:1.1rem;">Studies, Experience &amp; Skills Overview</p>
+                </div>
+                <div class="row g-3"></div>
+                    <div class="col-md-6">
+                        <div class="p-2 rounded-3" style="background:#181a1b;">
+                            <h5 class="mb-2" style="color:#00ffae;">Studies Progress</h5>
+                            <canvas id="studiesChart" height="120"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-2 rounded-3" style="background:#181a1b;">
+                            <h5 class="mb-2" style="color:#00ffae;">Experience</h5>
+                            <table class="table table-dark table-striped table-bordered mb-0 animate__animated animate__fadeIn" style="font-size:0.97rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Years</th>
+                                        <th>Projects</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Web Developer</td>
+                                        <td>3+</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UI Designer</td>
+                                        <td>2</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Analyst</td>
+                                        <td>1</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 p-2 rounded-3" style="background:#181a1b;">
+                    <h5 class="mb-2" style="color:#00ffae;">Skills Radar</h5>
+                    <canvas id="skillsRadar" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Journey Modal Overlay -->
+    <div id="journey-modal" class="d-none position-fixed top-0 start-0 w-100 h-100" style="z-index:1070; background:rgba(24,26,27,0.97); transition:opacity 0.4s;">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="journey-card animate__animated animate__fadeInDown position-relative" style="background:#232526; border-radius:1.5rem; box-shadow:0 8px 40px #00ffae44; max-width:420px; width:95vw; padding:1.2rem 0.7rem; max-height:90vh; overflow-y:auto;">
+                <button type="button" id="close-journey" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close" style="filter:invert(1);"></button>
+                <div class="text-center mb-2">
+                    <h2 style="color:#00ffae; letter-spacing:1px; font-size:1.3rem;">My Life Journey</h2>
+                    <p class="text-secondary mb-2" style="font-size:0.98rem;">A glimpse of my 12th studies, marks, and favourites!</p>
+                </div>
+                <div class="mb-2 p-2 rounded-3" style="background:#181a1b;">
+                    <h5 class="mb-2" style="color:#00ffae; font-size:1.05rem;">12th Standard Subjects &amp; Marks</h5>
+                    <table class="table table-dark table-striped table-bordered mb-0" style="font-size:0.93rem;">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>English</td><td>92</td></tr>
+                            <tr><td>Mathematics</td><td>88</td></tr>
+                            <tr><td>Physics</td><td>90</td></tr>
+                            <tr><td>Chemistry</td><td>85</td></tr>
+                            <tr><td>Computer Science</td><td>95</td></tr>
+                            <tr><td>Biology</td><td>80</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight:bold;">
+                                <td>Total</td>
+                                <td>530 / 600</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="mb-2 p-2 rounded-3" style="background:#181a1b;">
+                    <h5 class="mb-2" style="color:#00ffae; font-size:1.05rem;">My Favourites</h5>
+                    <ul class="list-unstyled mb-0" style="font-size:0.98rem;"></ul>
+                        <li><span class="bi bi-bicycle" style="color:#00ffae; margin-right:0.5rem;"></span>Bike: <strong>Royal Enfield Himalayan</strong></li>
+                        <li><span class="bi bi-controller" style="color:#00ffae; margin-right:0.5rem;"></span>Hobby: <strong>Gamer</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- AI Recogniser Button (Floating Skull) -->
+    <style>
+
+    </style>
+    <div class="ai-skull-btn" id="ai-skull-btn" title="Open AI Assistant">
+        <!-- SVG Skull Face -->
+        <svg class="ai-skull-svg" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="32" rx="22" ry="26" fill="#181a1b" stroke="#00ffae" stroke-width="3"/>
+            <ellipse cx="22" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+            <ellipse cx="42" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+            <ellipse cx="22" cy="32" rx="2" ry="3" fill="#00ffae"/>
+            <ellipse cx="42" cy="32" rx="2" ry="3" fill="#00ffae"/>
+            <ellipse cx="32" cy="44" rx="7" ry="4" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+            <ellipse cx="32" cy="46" rx="4" ry="2" fill="#00ffae" opacity="0.7"/>
+            <rect x="28" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+            <rect x="34" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+            <ellipse cx="32" cy="36" rx="2" ry="1" fill="#00ffae" opacity="0.7"/>
+        </svg>
+    </div>
+
+    <!-- AI Assistant Modal Overlay -->
+    <style>
+
+    </style>
+    <div id="ai-assistant-modal">
+        <div class="ai-assistant-card animate__animated">
+            <button class="ai-assistant-close" id="ai-assistant-close" aria-label="Close">&times;</button>
+            <!-- Storm BG -->
+            <div class="ai-storm-bg">
+                <div class="ai-storm-light one"></div>
+                <div class="ai-storm-light two"></div>
+                <canvas class="ai-storm-lines"></canvas>
+            </div>
+            <svg class="ai-assistant-skull" viewBox="0 0 64 64" fill="none">
+                <ellipse cx="32" cy="32" rx="22" ry="26" fill="#181a1b" stroke="#00ffae" stroke-width="3"/>
+                <ellipse cx="22" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="42" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="22" cy="32" rx="2" ry="3" fill="#00ffae"/>
+                <ellipse cx="42" cy="32" rx="2" ry="3" fill="#00ffae"/>
+                <ellipse cx="32" cy="44" rx="7" ry="4" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="32" cy="46" rx="4" ry="2" fill="#00ffae" opacity="0.7"/>
+                <rect x="28" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+                <rect x="34" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+                <ellipse cx="32" cy="36" rx="2" ry="1" fill="#00ffae" opacity="0.7"/>
+            </svg>
+            <div class="ai-assistant-title">AI Assistant</div>
+            <div class="ai-assistant-desc">Ask me anything about coding, hacking, or tech!<br><span style="font-size:0.97rem; color:#00ffae99;">(PRAWIN)</span></div>
+            <div class="ai-assistant-messages" id="ai-assistant-messages">
+                <div class="ai-assistant-message ai">
+                    <div class="msg-bubble">💀 Welcome, buddy! am Prawin How can I assist you today?</div>
+                </div>
+            </div>
+            <form class="ai-assistant-input-group" id="ai-assistant-form" autocomplete="off">
+                <input type="text" class="ai-assistant-input" id="ai-assistant-input" placeholder="Type your question..." required />
+                <button type="submit" class="ai-assistant-send-btn"><i class="bi bi-send"></i></button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Hacker Doll Widget -->
+    <style>
+    .hacker-doll-container {
+        position: fixed;
+        left: 32px;
+        top: 110px;
+        z-index: 1501;
+        width: 110px;
+        height: 170px;
+        user-select: none;
+        pointer-events: auto;
+        /* Place above AI assistant */
+        }
+        @media (max-width:600px) {
+        .hacker-doll-container { left: 8px; top: 70px; width: 78px; height: 120px;}
+        }
+        .hacker-doll {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        filter: drop-shadow(0 0 16px #00ffae88);
+        transition: filter 0.3s;
+        animation: doll-glow 2.5s infinite alternate;
+        }
+        .hacker-doll-emoji {
+        position: absolute;
+        left: 50%;
+        top: 18%;
+        transform: translate(-50%, -50%);
+        font-size: 2.2rem;
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        animation: emoji-pop 0.7s cubic-bezier(.77,0,.18,1) forwards;
+        }
+        @keyframes emoji-pop {
+        0% { opacity: 0; transform: translate(-50%,-50%) scale(0.7);}
+        40% { opacity: 1; transform: translate(-50%,-70%) scale(1.2);}
+        80% { opacity: 1; transform: translate(-50%,-90%) scale(1);}
+        100% { opacity: 0; transform: translate(-50%,-120%) scale(0.8);}
+        }
+        @keyframes doll-glow {
+        0% { filter: drop-shadow(0 0 16px #00ffae88);}
+        100% { filter: drop-shadow(0 0 32px #00c6fbcc);}
+        }
+        .hacker-doll-face {
+        transition: filter 0.4s;
+        }
+        .hacker-doll-rgb {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+        mix-blend-mode: lighten;
+        }
+        .hacker-doll-rgb .rgb-circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.45;
+        filter: blur(12px);
+        animation: rgb-move 3s infinite alternate;
+        }
+        .hacker-doll-rgb .rgb1 { width: 100px; height: 100px; left: -20px; top: -30px; background: radial-gradient(circle at 60% 40%, #00ffae 0%, transparent 80%); animation-delay: 0s;}
+        .hacker-doll-rgb .rgb2 { width: 70px; height: 70px; right: -18px; top: 20px; background: radial-gradient(circle at 40% 60%, #00c6fb 0%, transparent 80%); animation-delay: 1s;}
+        .hacker-doll-rgb .rgb3 { width: 120px; height: 120px; left: -30px; bottom: -30px; background: radial-gradient(circle at 50% 80%, #ff00e1 0%, transparent 80%); animation-delay: 2s;}
+    @keyframes rgb-move {
+        0% { transform: scale(1) translateY(0);}
+        100% { transform: scale(1.12) translateY(8px);}
+    }
+    .hacker-doll-smile .doll-mouth {
+        animation: smile-mouth 0.6s cubic-bezier(.77,0,.18,1);
+    }
+    @keyframes smile-mouth {
+        0% { d: path("M28,60 Q32,65 36,60"); }
+        100% { d: path("M26,58 Q32,72 38,58"); }
+    }
+    .hacker-doll-angry .doll-eyebrow-left {
+        transform: rotate(-18deg) translateY(-2px);
+        fill: #ff0055;
+    }
+    .hacker-doll-angry .doll-eyebrow-right {
+        transform: rotate(18deg) translateY(-2px);
+        fill: #ff0055;
+    }
+    .hacker-doll-angry .doll-mouth {
+        stroke: #ff0055;
+        animation: angry-mouth 0.5s cubic-bezier(.77,0,.18,1);
+    }
+    @keyframes angry-mouth {
+        0% { d: path("M28,60 Q32,65 36,60"); }
+        100% { d: path("M28,62 Q32,54 36,62"); }
+    }
+    .hacker-doll-smile .doll-mouth {
+        stroke: #00ffae;
+    }
+    .hacker-doll-face {
+        transition: filter 0.4s;
+    }
+    .hacker-doll-smile .hacker-doll-face {
+        filter: drop-shadow(0 0 12px #00ffaecc);
+    }
+    .hacker-doll-angry .hacker-doll-face {
+        filter: drop-shadow(0 0 16px #ff0055cc);
+    }
+    </style>
+    <div class="hacker-doll-container" id="hacker-doll-container" title="Hacker Doll">
+        <div class="hacker-doll" id="hacker-doll">
+            <svg class="hacker-doll-face" id="hacker-doll-face" viewBox="0 0 64 96" width="100%" height="100%">
+                <!-- Head -->
+                <ellipse cx="32" cy="38" rx="28" ry="32" fill="#181a1b" stroke="#00ffae" stroke-width="3"/>
+                <!-- Eyes -->
+                <ellipse class="doll-eye" id="doll-eye-left" cx="22" cy="38" rx="6" ry="8" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse class="doll-eye" id="doll-eye-right" cx="42" cy="38" rx="6" ry="8" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <!-- Pupils -->
+                <ellipse class="doll-pupil" id="doll-pupil-left" cx="22" cy="41" rx="2.2" ry="3.2" fill="#00ffae"/>
+                <ellipse class="doll-pupil" id="doll-pupil-right" cx="42" cy="41" rx="2.2" ry="3.2" fill="#00ffae"/>
+                <!-- Eyebrows -->
+                <rect class="doll-eyebrow-left" x="15" y="28" width="13" height="3" rx="1.5" fill="#00ffae" />
+                <rect class="doll-eyebrow-right" x="36" y="28" width="13" height="3" rx="1.5" fill="#00ffae" />
+                <!-- Mouth (neutral) -->
+                <path class="doll-mouth" id="doll-mouth" d="M28,60 Q32,65 36,60" stroke="#00ffae" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <!-- Mask (hacker style) -->
+                <ellipse cx="32" cy="54" rx="18" ry="10" fill="#232526" stroke="#00ffae" stroke-width="1.5" opacity="0.7"/>
+                <rect x="20" y="50" width="24" height="8" rx="4" fill="#00ffae" opacity="0.08"/>
+                <!-- Body -->
+                <ellipse cx="32" cy="82" rx="20" ry="12" fill="#232526" stroke="#00ffae" stroke-width="2"/>
+                <!-- Arms -->
+                <rect x="6" y="68" width="10" height="24" rx="6" fill="#00ffae" opacity="0.18" transform="rotate(-18 11 80)"/>
+                <rect x="48" y="68" width="10" height="24" rx="6" fill="#00ffae" opacity="0.18" transform="rotate(18 53 80)"/>
+            </svg>
+            <div class="hacker-doll-rgb">
+                <div class="rgb-circle rgb1"></div>
+                <div class="rgb-circle rgb2"></div>
+                <div class="rgb-circle rgb3"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        const doll = document.getElementById('hacker-doll');
+        const face = document.getElementById('hacker-doll-face');
+        const mouth = document.getElementById('doll-mouth');
+        const pupilL = document.getElementById('doll-pupil-left');
+        const pupilR = document.getElementById('doll-pupil-right');
+        const eyebrowL = face.querySelector('.doll-eyebrow-left');
+        const eyebrowR = face.querySelector('.doll-eyebrow-right');
+        let state = 'neutral'; // 'neutral', 'smile', 'angry'
+        let animTimeout = null;
+
+        // Eye follow logic
+        function moveEyes(e) {
+            const rect = face.getBoundingClientRect();
+            const cxL = 22, cyL = 38, cxR = 42, cyR = 38;
+            const mx = e.clientX, my = e.clientY;
+            function calcPupil(cx, cy) {
+                const dx = ((mx - (rect.left + rect.width/2)) / rect.width) * 18;
+                const dy = ((my - (rect.top + rect.height/2)) / rect.height) * 18;
+                const maxDist = 3.5;
+                let px = cx + Math.max(-maxDist, Math.min(maxDist, dx));
+                let py = cy + Math.max(-maxDist, Math.min(maxDist, dy));
+                return {x: px, y: py};
+            }
+            const pL = calcPupil(cxL, cyL+3);
+            const pR = calcPupil(cxR, cyR+3);
+            pupilL.setAttribute('cx', pL.x);
+            pupilL.setAttribute('cy', pL.y);
+            pupilR.setAttribute('cx', pR.x);
+            pupilR.setAttribute('cy', pR.y);
+        }
+        window.addEventListener('mousemove', moveEyes);
+
+        // Doll click: cycle face state
+        doll.addEventListener('click', function() {
+            if (state === 'neutral') {
+                state = 'smile';
+                doll.classList.remove('hacker-doll-angry');
+                doll.classList.add('hacker-doll-smile');
+                mouth.setAttribute('d', 'M26,58 Q32,72 38,58');
+                mouth.setAttribute('stroke', '#00ffae');
+                eyebrowL.setAttribute('y', 26);
+                eyebrowR.setAttribute('y', 26);
+                eyebrowL.setAttribute('fill', '#00ffae');
+                eyebrowR.setAttribute('fill', '#00ffae');
+                // Animate back to neutral
+                clearTimeout(animTimeout);
+                animTimeout = setTimeout(() => {
+                    state = 'neutral';
+                    doll.classList.remove('hacker-doll-smile');
+                    mouth.setAttribute('d', 'M28,60 Q32,65 36,60');
+                    eyebrowL.setAttribute('y', 28);
+                    eyebrowR.setAttribute('y', 28);
+                }, 1800);
+            } else if (state === 'smile') {
+                state = 'angry';
+                doll.classList.remove('hacker-doll-smile');
+                doll.classList.add('hacker-doll-angry');
+                mouth.setAttribute('d', 'M28,62 Q32,54 36,62');
+                mouth.setAttribute('stroke', '#ff0055');
+                eyebrowL.setAttribute('y', 24);
+                eyebrowR.setAttribute('y', 24);
+                eyebrowL.setAttribute('fill', '#ff0055');
+                eyebrowR.setAttribute('fill', '#ff0055');
+                // Animate back to neutral
+                clearTimeout(animTimeout);
+                animTimeout = setTimeout(() => {
+                    state = 'neutral';
+                    doll.classList.remove('hacker-doll-angry');
+                    mouth.setAttribute('d', 'M28,60 Q32,65 36,60');
+                    mouth.setAttribute('stroke', '#00ffae');
+                    eyebrowL.setAttribute('y', 28);
+                    eyebrowR.setAttribute('y', 28);
+                    eyebrowL.setAttribute('fill', '#00ffae');
+                    eyebrowR.setAttribute('fill', '#00ffae');
+                }, 1800);
+            } else {
+                // angry -> neutral
+                state = 'neutral';
+                doll.classList.remove('hacker-doll-angry');
+                mouth.setAttribute('d', 'M28,60 Q32,65 36,60');
+                mouth.setAttribute('stroke', '#00ffae');
+                eyebrowL.setAttribute('y', 28);
+                eyebrowR.setAttribute('y', 28);
+                eyebrowL.setAttribute('fill', '#00ffae');
+                eyebrowR.setAttribute('fill', '#00ffae');
+            }
+        });
+
+        // Touch support
+        doll.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            doll.click();
+        });
+
+        // RGB lightning pulse effect
+        setInterval(() => {
+            const rgb = doll.querySelector('.hacker-doll-rgb');
+            rgb.style.opacity = 0.7 + 0.3*Math.sin(Date.now()/600);
+        }, 60);
+    })();
+    </script>
+
+
+    <!-- Hacker Phone Modal for AI Assistant -->
+    <style>
+    #hacker-phone-modal {
+        position: fixed;
+        top: 0; right: 0; bottom: 0;
+        width: 370px;
+        max-width: 98vw;
+        z-index: 1400;
+        background: linear-gradient(120deg, #181a1b 70%, #00ffae22 100%);
+        box-shadow: -8px 0 40px #00ffae44, 0 0 0 8px #00ffae11 inset;
+        border-top-left-radius: 2.2rem;
+        border-bottom-left-radius: 2.2rem;
+        display: flex;
+        flex-direction: column;
+        /* Shorten height: add margin-top and margin-bottom */
+        top: 60px;
+        bottom: 60px;
+        height: auto;
+        min-height: 420px;
+        max-height: 540px;
+        transform: translateX(110%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.6s cubic-bezier(.77,0,.18,1), opacity 0.4s;
+        overflow: hidden;
+    }
+    #hacker-phone-modal.active {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .hacker-phone-header {
+        background: linear-gradient(90deg, #232526 60%, #00ffae22 100%);
+        padding: 1.1rem 1.2rem 0.7rem 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        border-top-left-radius: 2.2rem;
+        border-bottom: 1.5px solid #00ffae33;
+        box-shadow: 0 2px 12px #00ffae22;
+        position: relative;
+    }
+    .hacker-phone-skull {
+        width: 38px; height: 38px;
+        filter: drop-shadow(0 0 8px #00ffaecc);
+        animation: skull-flicker 1.2s infinite alternate;
+    }
+    .hacker-phone-title {
+        color: #00ffae;
+        font-size: 1.25rem;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        flex: 1;
+        text-shadow: 0 0 8px #00ffae88;
+    }
+    .hacker-phone-close {
+        background: none;
+        border: none;
+        color: #00ffae;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.2s;
+        margin-left: 0.5rem;
+    }
+    .hacker-phone-close:hover { color: #fff; }
+    .hacker-phone-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: #181a1b;
+        padding: 1.1rem 1rem 0.7rem 1rem;
+        overflow-y: auto;
+        position: relative;
+        min-height: 0;
+        max-height: 340px;
+    }
+    .hacker-phone-messages {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 0.7rem;
+        padding-right: 2px;
+        scrollbar-width: thin;
+        scrollbar-color: #00ffae #232526;
+        max-height: 220px;
+    }
+    .hacker-phone-message {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: flex-end;
+        gap: 0.5rem;
+        animation: msg-in 0.5s;
+    }
+    .hacker-phone-message.user .msg-bubble {
+        background: linear-gradient(90deg, #00c6fb 0%, #00ffae 100%);
+        color: #232526;
+        align-self: flex-end;
+        margin-left: auto;
+        box-shadow: 0 2px 8px #00ffae44;
+    }
+    .hacker-phone-message.ai .msg-bubble {
+        background: #232526;
+        color: #00ffae;
+        border: 1.5px solid #00ffae88;
+        align-self: flex-start;
+        margin-right: auto;
+        box-shadow: 0 2px 8px #00ffae22;
+    }
+    .msg-bubble {
+        border-radius: 1.1rem 1.1rem 1.1rem 0.4rem;
+        padding: 0.6rem 1.1rem;
+        max-width: 80%;
+        word-break: break-word;
+        font-size: 1.05rem;
+        position: relative;
+    }
+    @keyframes msg-in {
+        0% { transform: translateY(20px) scale(0.95); opacity: 0; }
+        100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .hacker-phone-input-group {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.7rem 0.7rem 1.1rem 0.7rem;
+        background: linear-gradient(90deg, #232526 60%, #00ffae11 100%);
+        border-bottom-left-radius: 2.2rem;
+        border-top: 1.5px solid #00ffae33;
+        box-shadow: 0 -2px 12px #00ffae22;
+    }
+    .hacker-phone-input {
+        flex: 1;
+        border-radius: 1rem;
+        border: 2px solid #00ffae44;
+        background: #181a1b;
+        color: #fff;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+    .hacker-phone-input:focus {
+        border: 2px solid #00ffae;
+        box-shadow: 0 0 8px #00ffae88;
+    }
+    .hacker-phone-send-btn {
+        background: linear-gradient(90deg, #00ffae 0%, #00c6fb 100%);
+        color: #232526;
+        border: none;
+        border-radius: 1rem;
+        padding: 0.7rem 1.1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s, transform 0.2s;
+        box-shadow: 0 2px 8px #00ffae44;
+    }
+    .hacker-phone-send-btn:hover {
+        background: #232526;
+        color: #00ffae;
+        transform: scale(1.05);
+    }
+    .hacker-phone-glow {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+        background: radial-gradient(circle at 80% 10%, #00ffae33 0%, transparent 70%);
+        animation: phone-glow 2.5s infinite alternate;
+    }
+    @keyframes phone-glow {
+        0% { opacity: 0.7; }
+        100% { opacity: 1; filter: blur(2px);}
+    }
+    @media (max-width: 600px) {
+        #hacker-phone-modal {
+            width: 99vw;
+            border-radius: 1.2rem 0 0 1.2rem;
+            top: 10px;
+            bottom: 10px;
+            max-height: 95vh;
+        }
+        .hacker-phone-header, .hacker-phone-body, .hacker-phone-input-group {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .hacker-phone-body {
+            max-height: 320px;
+        }
+        .hacker-phone-messages {
+            max-height: 180px;
+        }
+    }
+    </style>
+    <div id="hacker-phone-modal" aria-modal="true" role="dialog">
+        <div class="hacker-phone-header">
+            <svg class="hacker-phone-skull" viewBox="0 0 64 64" fill="none">
+                <ellipse cx="32" cy="32" rx="22" ry="26" fill="#181a1b" stroke="#00ffae" stroke-width="3"/>
+                <ellipse cx="22" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="42" cy="30" rx="4" ry="6" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="22" cy="32" rx="2" ry="3" fill="#00ffae"/>
+                <ellipse cx="42" cy="32" rx="2" ry="3" fill="#00ffae"/>
+                <ellipse cx="32" cy="44" rx="7" ry="4" fill="#fff" stroke="#00ffae" stroke-width="2"/>
+                <ellipse cx="32" cy="46" rx="4" ry="2" fill="#00ffae" opacity="0.7"/>
+                <rect x="28" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+                <rect x="34" y="50" width="2" height="6" rx="1" fill="#00ffae"/>
+                <ellipse cx="32" cy="36" rx="2" ry="1" fill="#00ffae" opacity="0.7"/>
+            </svg>
+            <span class="hacker-phone-title">Hacker Phone</span>
+            <button class="hacker-phone-close" id="hacker-phone-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="hacker-phone-body">
+            <div class="hacker-phone-glow"></div>
+            <div class="hacker-phone-messages" id="hacker-phone-messages">
+                <div class="hacker-phone-message ai">
+                    <div class="msg-bubble">💀 Welcome to the Hacker Phone! Ask me anything about coding, hacking, or tech.</div>
+                </div>
+            </div>
+        </div>
+        <form class="hacker-phone-input-group" id="hacker-phone-form" autocomplete="off">
+            <input type="text" class="hacker-phone-input" id="hacker-phone-input" placeholder="Type your question..." required />
+            <button type="submit" class="hacker-phone-send-btn"><i class="bi bi-send"></i></button>
+        </form>
+    </div>
+    <script>
+    (function() {
+        // Elements
+        const skullBtn = document.getElementById('ai-skull-btn');
+        const phoneModal = document.getElementById('hacker-phone-modal');
+        const closeBtn = document.getElementById('hacker-phone-close');
+        const input = document.getElementById('hacker-phone-input');
+        const form = document.getElementById('hacker-phone-form');
+        const messages = document.getElementById('hacker-phone-messages');
+        // Animation helpers
+        function openPhone() {
+            phoneModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => input.focus(), 350);
+        }
+        function closePhone() {
+            phoneModal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { input.value = ''; }, 400);
+        }
+        // Toggle: Skull button opens phone instead of modal
+        skullBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openPhone();
+        });
+        closeBtn.addEventListener('click', closePhone);
+        phoneModal.addEventListener('mousedown', function(e) {
+            if (e.target === phoneModal) closePhone();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && phoneModal.classList.contains('active')) closePhone();
+        });
+        // Hacker AI logic (same as modal)
+        function aiReply(userMsg) {
+            const lower = userMsg.trim().toLowerCase();
+            if (!lower) return "Type something to begin.";
+            if (lower.includes('html')) return "HTML is the backbone of web pages. Want a hacker-style HTML snippet?";
+            if (lower.includes('hack')) return "Ethical hacking is about learning and protecting. Need a CTF tip?";
+            if (lower.includes('css')) return "CSS makes your site look slick. Try a neon glow with box-shadow!";
+            if (lower.includes('js') || lower.includes('javascript')) return "JavaScript: The hacker's tool for browser exploits and fun!";
+            if (lower.includes('python')) return "Python is perfect for scripting hacks and automation. Need a script?";
+            if (lower.includes('storm')) return "Storm mode: Initiating cyber lightning ⚡";
+            if (lower.includes('react')) return "React lets you build dynamic UIs. Want a hacker React component?";
+            if (lower.includes('pro hacker')) return "Access granted. Welcome, elite hacker. 💀";
+            if (lower.includes('help')) return "Ask me about HTML, CSS, JS, Python, hacking, or anything tech!";
+            return "I'm your hacker phone AI. Ask me anything about coding, hacking, or tech!";
+        }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'hacker-phone-message user';
+            userDiv.innerHTML = `<div class="msg-bubble">${userMsg.replace(/</g,"&lt;")}</div>`;
+            messages.appendChild(userDiv);
+            messages.scrollTop = messages.scrollHeight;
+            input.value = '';
+            // Add AI typing...
+            const aiDiv = document.createElement('div');
+            aiDiv.className = 'hacker-phone-message ai';
+            aiDiv.innerHTML = `<div class="msg-bubble"><span class="typing-dots">💀 <span>.</span><span>.</span><span>.</span></span></div>`;
+            messages.appendChild(aiDiv);
+            messages.scrollTop = messages.scrollHeight;
+            // Animate dots
+            let dots = aiDiv.querySelectorAll('.typing-dots span');
+            let dotIdx = 0;
+            let dotInt = setInterval(() => {
+                dots.forEach((d,i) => d.style.opacity = (i<=dotIdx%3)?'1':'0.3');
+                dotIdx++;
+            }, 300);
+            // After delay, show AI reply
+            setTimeout(() => {
+                clearInterval(dotInt);
+                aiDiv.innerHTML = `<div class="msg-bubble">${aiReply(userMsg)}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 1100 + Math.random()*400);
+        });
+        // Optional: Animate phone in/out with cool effect
+        // (already handled by CSS transitions)
+    })();
+    </script>
+
+
+
+
+
+
+    <script>
+    // Storm lightning lines animation
+    function drawStormLines(canvas) {
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        function randomLine() {
+            const w = canvas.width, h = canvas.height;
+            const x0 = Math.random() < 0.5 ? 0 : w, y0 = Math.random() * h * 0.5;
+            const x1 = w/2 + (Math.random()-0.5)*w*0.2, y1 = h/2 + (Math.random()-0.5)*h*0.2;
+            const x2 = Math.random() * w, y2 = h;
+            return [[x0, y0], [x1, y1], [x2, y2]];
+        }
+        let lines = [];
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            // Fade old lines
+            lines = lines.filter(l => l.life > 0);
+            lines.forEach(l => {
+                ctx.save();
+                ctx.globalAlpha = l.life/1.5;
+                ctx.strokeStyle = '#00ffae';
+                ctx.shadowColor = '#00ffae';
+                ctx.shadowBlur = 12;
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.moveTo(l.path[0][0], l.path[0][1]);
+                ctx.lineTo(l.path[1][0], l.path[1][1]);
+                ctx.lineTo(l.path[2][0], l.path[2][1]);
+                ctx.stroke();
+                ctx.restore();
+                l.life -= 0.04;
+            });
+            // Occasionally add a new line
+            if (Math.random() < 0.08) {
+                lines.push({path: randomLine(), life: 1.5});
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Open/close modal logic
+        const skullBtn = document.getElementById('ai-skull-btn');
+        const modal = document.getElementById('ai-assistant-modal');
+        const closeBtn = document.getElementById('ai-assistant-close');
+        const input = document.getElementById('ai-assistant-input');
+        const form = document.getElementById('ai-assistant-form');
+        const messages = document.getElementById('ai-assistant-messages');
+        // Storm lines
+        drawStormLines(modal.querySelector('.ai-storm-lines'));
+        // Open modal
+        skullBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => input.focus(), 350);
+        });
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { input.value = ''; }, 400);
+        }
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('mousedown', function(e) {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+        // AI assistant logic (demo, not real AI)
+        function aiReply(userMsg) {
+            // Simple demo replies
+            const lower = userMsg.trim().toLowerCase();
+            if (!lower) return "Type something to begin.";
+            if (lower.includes('html')) return "HTML (HyperText Markup Language) is the standard markup for web pages. Need a code example?";
+            if (lower.includes('hack')) return "Remember: Ethical hacking is about learning and protecting, not harming. Want to know about penetration testing?";
+            if (lower.includes('css')) return "CSS lets you style your HTML. Try using gradients and transitions for cool effects!";
+            if (lower.includes('js') || lower.includes('javascript')) return "JavaScript powers interactivity on the web. Ask me for a JS trick!";
+            if (lower.includes('python')) return "Python is great for automation, data, and hacking scripts. Need a Python snippet?";
+            if (lower.includes('storm')) return "Storm mode activated! Enjoy the lightning ⚡";
+            if (lower.includes('react')) return "React is a powerful JS library for building UIs. Want a React component example?";
+            if (lower.includes('pro hacker')) return "Access granted. Welcome, elite hacker. 💀";
+            if (lower.includes('help')) return "Ask me about HTML, CSS, JS, Python, hacking, or anything tech!";
+            // Default
+            return "I'm your AI assistant. Ask me anything about coding, hacking, or tech!";
+        }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'ai-assistant-message user';
+            userDiv.innerHTML = `<div class="msg-bubble">${userMsg.replace(/</g,"&lt;")}</div>`;
+            messages.appendChild(userDiv);
+            messages.scrollTop = messages.scrollHeight;
+            input.value = '';
+            // Add AI typing...
+            const aiDiv = document.createElement('div');
+            aiDiv.className = 'ai-assistant-message ai';
+            aiDiv.innerHTML = `<div class="msg-bubble"><span class="typing-dots">💀 <span>.</span><span>.</span><span>.</span></span></div>`;
+            messages.appendChild(aiDiv);
+            messages.scrollTop = messages.scrollHeight;
+            // Animate dots
+            let dots = aiDiv.querySelectorAll('.typing-dots span');
+            let dotIdx = 0;
+            let dotInt = setInterval(() => {
+                dots.forEach((d,i) => d.style.opacity = (i<=dotIdx%3)?'1':'0.3');
+                dotIdx++;
+            }, 300);
+            // After delay, show AI reply
+            setTimeout(() => {
+                clearInterval(dotInt);
+                aiDiv.innerHTML = `<div class="msg-bubble">${aiReply(userMsg)}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 1100 + Math.random()*400);
+        });
+    });
+    </script>
+
+
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show Journey Modal when "Journey" dropdown item is clicked
+        const journeyModal = document.getElementById('journey-modal');
+        const closeJourney = document.getElementById('close-journey');
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            if (item.textContent.trim().toLowerCase() === 'journey') {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    journeyModal.classList.remove('d-none');
+                    setTimeout(() => journeyModal.style.opacity = '1', 10);
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+        });
+        // Close journey modal
+        closeJourney.addEventListener('click', function() {
+            journeyModal.style.opacity = '0';
+            setTimeout(() => {
+                journeyModal.classList.add('d-none');
+                document.body.style.overflow = '';
+            }, 400);
+        });
+        // Close on ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !journeyModal.classList.contains('d-none')) {
+                closeJourney.click();
+            }
+        });
+        // Close when clicking outside card
+        journeyModal.addEventListener('mousedown', function(e) {
+            if (e.target === journeyModal) closeJourney.click();
+        });
+    });
+    </script>
+
+
+
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show Dashboard Modal when About nav-link is clicked
+        const dashboardModal = document.getElementById('dashboard-modal');
+        const closeDashboard = document.getElementById('close-dashboard');
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.textContent.trim().toLowerCase() === 'about') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    dashboardModal.classList.remove('d-none');
+                    setTimeout(() => dashboardModal.style.opacity = '1', 10);
+                    document.body.style.overflow = 'hidden';
+                    // Animate charts only when modal opens
+                    setTimeout(initDashboardCharts, 200);
+                });
+            }
+        });
+        // Close dashboard modal
+        closeDashboard.addEventListener('click', function() {
+            dashboardModal.style.opacity = '0';
+            setTimeout(() => {
+                dashboardModal.classList.add('d-none');
+                document.body.style.overflow = '';
+            }, 400);
+        });
+        // Close on ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !dashboardModal.classList.contains('d-none')) {
+                closeDashboard.click();
+            }
+        });
+        // Close when clicking outside card
+        dashboardModal.addEventListener('mousedown', function(e) {
+            if (e.target === dashboardModal) closeDashboard.click();
+        });
+
+        // Animate and render charts
+        let chartsInitialized = false;
+        function initDashboardCharts() {
+            if (chartsInitialized) return;
+            chartsInitialized = true;
+            // Studies Progress Bar Chart
+            new Chart(document.getElementById('studiesChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['HTML', 'CSS', 'JavaScript', 'Python', 'React'],
+                    datasets: [{
+                        label: 'Proficiency (%)',
+                        data: [95, 90, 85, 75, 70],
+                        backgroundColor: [
+                            '#00ffaecc', '#00c6fbcc', '#00ffae99', '#00c6fb99', '#00ffae66'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: { duration: 1200, easing: 'easeOutBounce' },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { color: '#00ffae' }, grid: { color: '#333' } },
+                        x: { ticks: { color: '#fff' }, grid: { color: '#222' } }
+                    }
+                }
+            });
+            // Skills Radar Chart
+            new Chart(document.getElementById('skillsRadar').getContext('2d'), {
+                type: 'radar',
+                data: {
+                    labels: ['HTML', 'CSS', 'JavaScript', 'Python', 'React', 'UI Design', 'Data Analysis'],
+                    datasets: [{
+                        label: 'Skill Level',
+                        data: [9.5, 9, 8.5, 7.5, 7, 8, 7],
+                        backgroundColor: 'rgba(0,255,174,0.2)',
+                        borderColor: '#00ffae',
+                        pointBackgroundColor: '#00ffae',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#00ffae'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: { duration: 1200, easing: 'easeOutElastic' },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#333' },
+                            grid: { color: '#222' },
+                            pointLabels: { color: '#00ffae', font: { size: 13 } },
+                            min: 0, max: 10, ticks: { stepSize: 2, color: '#fff' }
+                        }
+                    }
+                }
+            });
+        }
+    });
+    </script>
+
+
+
+    <!-- Bootstrap Icons CDN for eye icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script>
+    // Show Sign In Modal when navbar SignIn is clicked
+    document.addEventListener('DOMContentLoaded', function() {
+        const signinModal = document.getElementById('signin-modal');
+        const closeBtn = document.getElementById('close-signin');
+        // Find the SignIn nav-link (case-insensitive)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.textContent.trim().toLowerCase() === 'signin') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    signinModal.classList.remove('d-none');
+                    setTimeout(() => signinModal.style.opacity = '1', 10);
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+        });
+        // Close modal
+        closeBtn.addEventListener('click', function() {
+            signinModal.style.opacity = '0';
+            setTimeout(() => {
+                signinModal.classList.add('d-none');
+                document.body.style.overflow = '';
+            }, 400);
+        });
+        // Close on ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !signinModal.classList.contains('d-none')) {
+                closeBtn.click();
+            }
+        });
+        // Close when clicking outside card
+        signinModal.addEventListener('mousedown', function(e) {
+            if (e.target === signinModal) closeBtn.click();
+        });
+        // Toggle password visibility
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const pwd = document.getElementById('signin-password');
+            const icon = this.querySelector('span');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        });
+        // Demo: Prevent actual sign in
+        document.getElementById('signin-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Signing In...';
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = 'Sign In';
+                alert('Signed in! (Demo)');
+                closeBtn.click();
+            }, 1200);
+        });
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <script>
+    // Scroll animation for sections
+    function revealSections() {
+        document.querySelectorAll('section').forEach(sec => {
+            const rect = sec.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 80) {
+                sec.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('DOMContentLoaded', revealSections);
+
+    // Animate skill bars on scroll
+    function animateBars() {
+        document.querySelectorAll('.bar-fill').forEach(bar => {
+            const parent = bar.closest('section');
+            if (parent && parent.classList.contains('visible')) {
+                bar.style.width = bar.style.width; // triggers transition
+            }
+        });
+    }
+    window.addEventListener('scroll', animateBars);
+    window.addEventListener('DOMContentLoaded', animateBars);
+
+    // Prevent form submission (demo)
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent! (Demo)');
+        });
+    });
+
+    // Set current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+    
+    
+</body>
+
+</html>
+
+
+
+
